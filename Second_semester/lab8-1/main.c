@@ -27,7 +27,6 @@ int main() {
     scanf_s("%d", &n_vert);
     scanf_s("%d", &m_edge);
 
-    //тут ошибки прописать надо
     if (errors(n_vert, m_edge))
         return 0;
 
@@ -63,7 +62,6 @@ int main() {
         return 0;
     }
 
-    //уже в приме сделать это
     prim(graph);
 
     return 0;
