@@ -1,37 +1,49 @@
-#ifndef LAB8_1_GRAPH_H
-#define LAB8_1_GRAPH_H
+#ifndef LAB8_1_NEW_GRAPH_H
+#define LAB8_1_NEW_GRAPH_H
 
-#define EDGE struct edge
+#define VERTEX struct vertex
 #define GRAPH struct graph
 
-#include <malloc.h>
-
-EDGE {
-    int start;
-    int finish;
-    int weight;
+VERTEX {
+    int vert; //конечная вершина
+    long int weight;
+    VERTEX* next;
 };
 
 GRAPH {
-    int numb_vert;
-    int numb_edge;
-    EDGE* edge;
+    int num_vert;
+    VERTEX** adj_list;
 };
 
-GRAPH* create_graph(int vrcs, int edges) {
+VERTEX* create_vrtx(int vert, int w) {
+    VERTEX* new_vrtx = (VERTEX*)malloc(sizeof(VERTEX));
+
+    new_vrtx->vert = vert;
+    new_vrtx->weight = w;
+    new_vrtx->next = NULL;
+
+    return new_vrtx;
+}
+
+GRAPH* create_grph(int vert) {
     GRAPH* new_graph = (GRAPH*)malloc(sizeof(GRAPH));
+    new_graph->num_vert = vert;
+    new_graph->adj_list = (VERTEX**)malloc(vert * sizeof(VERTEX*));
 
-    new_graph->numb_vert = vrcs;
-    new_graph->numb_edge = edges;
-    new_graph->edge = (EDGE*)malloc(edges * sizeof(EDGE));
-
+    for (int i = 0; i < vert; i++)
+        new_graph->adj_list[i] = NULL;
     return new_graph;
 }
 
-void add_edge(GRAPH* graph, int start, int finish, int wei, int i) {
-    graph->edge[i].start = start;
-    graph->edge[i].finish = finish;
-    graph->edge[i].weight = wei;
+void add_edge(GRAPH* graph, int start, int finish, int weight) {
+    VERTEX* new_vrtx = create_vrtx(finish, weight);
+    new_vrtx->next = graph->adj_list[start];
+    graph->adj_list[start] = new_vrtx;
 }
 
-#endif //LAB8_1_GRAPH_H
+void free_grph(GRAPH* graph) {
+    free(graph->adj_list);
+    free(graph);
+}
+
+#endif //LAB8_1_NEW_GRAPH_H

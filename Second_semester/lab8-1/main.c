@@ -1,64 +1,61 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
 #include "graph.h"
 #include "prim.h"
 
-#define MIN 0
-#define MAX_VRT 5000
-#define MAX_EDGE (vert * (vert + 1) / 2)
+#define VERT_MAX 5000
+#define EDGE_MAX vert*(vert-1)/2
+#define WGHT_MAX INT_MAX
 
-int errors(int vert, int edge) {
-    if (vert < MIN || vert > MAX_VRT) {
-        puts("bad number of vertices");
-        return -1;
-    }
-    if (edge < MIN || edge > MAX_EDGE) {
-        puts("bad number of edges");
-        return -1;
-    }
-
-    return 0;
-}
+// Возможно, нужно переименовать vertex в edge
+// А еще
 
 int main() {
-    int n_vert, m_edge;
-    int start, finish, len;
-    int cnt = 0, sp_cnt = 0;
+    int vert, edge;
+    int cnt_chk = 0;
 
-    scanf_s("%d", &n_vert);
-    scanf_s("%d", &m_edge);
+    scanf_s("%d", &vert);
+    scanf_s("%d", &edge);
 
-    if (errors(n_vert, m_edge))
+    GRAPH* graph = create_grph(vert);
+
+    //Раз ошибки
+    if (vert < 0 || vert > VERT_MAX){
+        puts("bad number of vertices");
         return 0;
-
-    GRAPH* graph = create_graph(n_vert, m_edge);
-
-    for (int i = 0; i < m_edge; i++) {
-        scanf_s("%d %d %d", &start, &finish, &len);
-
-        if ((start < 1 || start > n_vert) || (finish < 1 || finish > n_vert)) {
-            printf("bad vertex");
-            return 0;
-        }
-
-        if ((len < 0) || (len > INT_MAX)) {
-            printf("bad length");
-            return 0;
-        }
-
-        if (start == n_vert || finish == n_vert)
-            sp_cnt++;
-
-        add_edge(graph, start, finish, len, i);
-        cnt++;
     }
 
-    if (cnt < m_edge) {
+    if (edge < 0 || edge > EDGE_MAX){
+        puts("bad number of edges");
+        return 0;
+    }
+
+    for (int i = 0; i < edge; i++) {
+        int start, finish;
+        long int weight;
+        scanf_s("%d %d %ld", &start, &finish, &weight);
+
+        //Два ошибки
+        if ((start < 1 || start > vert) || (finish < 1 || finish > vert)) {
+            puts("bad vertex");
+            return 0;
+        }
+
+        if (weight < 0 || weight > WGHT_MAX) {
+            puts("bed length");
+            return 0;
+        }
+
+        add_edge(graph, finish-1, start-1, weight);
+        add_edge(graph, start-1, finish-1, weight);
+        cnt_chk++;
+    }
+
+    //Три ошибка (проверка)
+    if (cnt_chk > edge) {
         puts("bad number of lines");
-        return 0;
-    }
-
-    if (sp_cnt == 0) {
-        puts("no spanning tree");
         return 0;
     }
 
