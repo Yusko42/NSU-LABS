@@ -1,7 +1,9 @@
 #ifndef LAB8_1_NEW_PRIM_H
 #define LAB8_1_NEW_PRIM_H
 
-int min_wght(int weight[], bool passed[], int vert) {
+#include <stdbool.h>
+
+int min_wght(int* weight, bool* passed, int vert) {
     int min = LONG_MAX;
     int min_idx;
 
@@ -18,27 +20,26 @@ int min_wght(int weight[], bool passed[], int vert) {
 void prim(GRAPH* graph) {
     int vert = graph->num_vert;
 
-    int parent[vert];
-    int weight[vert];
+    int* parent = (int*)malloc(vert * sizeof(int));
+    int* weight = (int*)malloc(vert * sizeof(int));
     bool passed[vert];
-    //Надо переделать в дин. массивы, но пока ок
 
     for (int idx = 0; idx < vert; ++idx) {
         weight[idx] = LONG_MAX;
         passed[idx] = false;
     }
 
-    //Начинаем с 1-й вершины
+    //Start - the 1st vertex
     weight[0] = 0;
     parent[0] = -1;
 
     for (int i = 0; i < vert - 1; ++i) {
         int u = min_wght(weight, passed, vert);
-        passed[u] = true; //мы ждем перемен (названий переменных)
+        passed[u] = true;
 
         VERTEX* vertex = graph->adj_list[u];
 
-        while (vertex!=NULL) {
+        while (vertex != NULL) {
             int v = vertex->vert;
             if (passed[v] == false && vertex->weight < weight[v]) {
                 weight[v] = vertex->weight;
@@ -54,9 +55,12 @@ void prim(GRAPH* graph) {
             min_wght = weight[i];
 
     for (int idx = 1; idx < vert; idx++)
-        if (weight[idx] == min_wght)
-            printf("%d %d \n", parent[idx] + 1, idx + 1);
-
+        if (weight[idx] == min_wght) {
+            if (parent[idx] < idx)
+                printf("%d %d \n", parent[idx] + 1, idx + 1);
+            else
+                printf("%d %d \n", idx + 1, parent[idx] + 1);
+        }
 }
 
 #endif //LAB8_1_NEW_PRIM_H

@@ -4,8 +4,9 @@
 #define VERTEX struct vertex
 #define GRAPH struct graph
 
+//vert - the "finish" vertex
 VERTEX {
-    int vert; //конечная вершина
+    int vert;
     long int weight;
     VERTEX* next;
 };

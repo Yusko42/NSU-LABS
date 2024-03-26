@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 #include "graph.h"
 #include "prim.h"
@@ -8,9 +7,6 @@
 #define VERT_MAX 5000
 #define EDGE_MAX vert*(vert-1)/2
 #define WGHT_MAX INT_MAX
-
-// Возможно, нужно переименовать vertex в edge
-// А еще
 
 int main() {
     int vert, edge;
@@ -53,13 +49,13 @@ int main() {
         cnt_chk++;
     }
 
-    //Три ошибка (проверка)
     if (cnt_chk > edge) {
         puts("bad number of lines");
         return 0;
     }
 
     prim(graph);
+    free_grph(graph);
 
     return 0;
 }
