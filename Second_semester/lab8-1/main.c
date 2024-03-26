@@ -17,7 +17,6 @@ int main() {
 
     GRAPH* graph = create_grph(vert);
 
-    // § ®è¨¡ª¨
     if (vert < 0 || vert > VERT_MAX){
         puts("bad number of vertices");
         return 0;
@@ -33,7 +32,7 @@ int main() {
         long int weight;
         scanf_s("%d %d %ld", &start, &finish, &weight);
 
-        //„¢  ®è¨¡ª¨
+        //â€Â¢Â  Â®Ã¨Â¨Â¡ÂªÂ¨
         if ((start < 1 || start > vert) || (finish < 1 || finish > vert)) {
             puts("bad vertex");
             return 0;
