@@ -11,6 +11,7 @@
 int main() {
     int vert, edge;
     int cnt_chk = 0;
+    int cnt_vert = 0;
 
     scanf_s("%d", &vert);
     scanf_s("%d", &edge);
@@ -42,9 +43,17 @@ int main() {
             return 0;
         }
 
+        if (start == vert || finish == vert)
+            cnt_vert++;
+
         add_edge(graph, finish-1, start-1, weight);
         add_edge(graph, start-1, finish-1, weight);
         cnt_chk++;
+    }
+
+    if (cnt_vert == 0) {
+        puts("no spanning tree");
+        return 0;
     }
 
     if (cnt_chk > edge) {
