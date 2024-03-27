@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+//Searchinf for the min weight from "the table"
 int min_wght(int* weight, bool* passed, int vert) {
     int min = LONG_MAX;
     int min_idx;
@@ -39,6 +40,7 @@ void prim(GRAPH* graph) {
 
         VERTEX* vertex = graph->adj_list[u];
 
+        //Comparing the edge weight values
         while (vertex != NULL) {
             int v = vertex->vert;
             if (passed[v] == false && vertex->weight < weight[v]) {
@@ -49,11 +51,13 @@ void prim(GRAPH* graph) {
         }
     }
 
+    //Searching for the min edge weight
     int min_wght = LONG_MAX;
     for (int i = 1; i < vert; i++)
         if (weight[i] < min_wght)
             min_wght = weight[i];
 
+    //Printing vertices of an edge with the min weight
     for (int idx = 1; idx < vert; idx++)
         if (weight[idx] == min_wght) {
             if (parent[idx] < idx)
