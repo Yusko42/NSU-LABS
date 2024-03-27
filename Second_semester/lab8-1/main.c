@@ -32,7 +32,6 @@ int main() {
         long int weight;
         scanf_s("%d %d %ld", &start, &finish, &weight);
 
-        //„¢  ®è¨¡ª¨
         if ((start < 1 || start > vert) || (finish < 1 || finish > vert)) {
             puts("bad vertex");
             return 0;
