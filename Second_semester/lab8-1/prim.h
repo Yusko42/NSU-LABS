@@ -33,7 +33,7 @@ void prim(GRAPH* graph) {
     weight[0] = 0;
     parent[0] = -1;
 
-    for (int i = 0; i < vert - 1; ++i) {
+    for (int i = 0; i < vert; i++) {
         int u = min_wght(weight, passed, vert);
         passed[u] = true;
 
