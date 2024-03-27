@@ -1,5 +1,5 @@
-#ifndef LAB8_0_PRIM_H
-#define LAB8_0_PRIM_H
+#ifndef LAB8_0_KRUSKAL_H
+#define LAB8_0_KRUSKAL_H
 
 void make_set(int* parent, int* rank, int x) {
     parent[x] = x;
@@ -81,4 +81,4 @@ void kruskal(GRAPH* graph, int edge) {
     free(rank);
 }
 
-#endif //LAB8_0_PRIM_H
+#endif //LAB8_0_KRUSKAL_H
