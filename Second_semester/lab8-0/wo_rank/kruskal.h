@@ -24,7 +24,6 @@ void kruskal(GRAPH* graph, int edge) {
     EDGE* result= (EDGE*)malloc(vert * sizeof(EDGE));
 
     //Parent: stores the ancestor of the vertex
-    //Rank: stores the approx value of the height of the subtree
     int* parent = (int*)malloc(vert * sizeof(int));
 
     qsort(graph->edge_list, edge, sizeof(graph->edge_list[0]), cmp_edge);
