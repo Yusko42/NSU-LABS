@@ -19,14 +19,27 @@ int cmp_edge(const void* a, const void* b) {
     return (edge1->weight - edge2->weight);
 }
 
+void swap(EDGE* mas, int i, int j) {
+    EDGE tmp = *(mas+i);
+    *(mas+i) = *(mas+j);;
+    *(mas+j) = tmp;
+}
+
 void kruskal(GRAPH* graph, int edge) {
     int vert = graph->num_vert;
     EDGE* result= (EDGE*)malloc(vert * sizeof(EDGE));
 
     //Parent: stores the ancestor of the vertex
     int* parent = (int*)malloc(vert * sizeof(int));
+    
+    //Made with the bubble sort
+    for (int i = 0; i < edge; i++) {
+        for (int j = i+1; j < edge; j++) {
+            if (graph->edge_list[i].weight > graph->edge_list[j].weight)
+                swap(graph->edge_list, i, j);
+        }
+    }
 
-    qsort(graph->edge_list, edge, sizeof(graph->edge_list[0]), cmp_edge);
 
     for (int v = 0; v < vert; v++)
         make_set(parent, v);
